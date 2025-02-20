@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AffiliateNest - Best Deals & Recommendations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Enhanced CSS with better organization and improvements */
+        :root {
+            --primary-color: #FF6B35;
+            --secondary-color: #FF8C42;
+            --accent-color: #2A9D8F;
+            --text-color: #2D3142;
+            --light-bg: #F5F5F5;
+            --card-bg: #FFFFFF;
+            --nav-bg: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme='dark'] {
+            --primary-color: #FF9F1C;
+            --secondary-color: #FFBF69;
+            --text-color: #EDF2F4;
+            --light-bg: #1A1A1A;
+            --card-bg: #2D2D2D;
+            --nav-bg: #121212;
+            --shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.3s, color 0.2s;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Improved Navigation */
+        nav {
+            background-color: var(--nav-bg);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            padding: 12rem 2rem 6rem;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('banner2.webp');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #FFD700, #FF8C00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+            100% { text-shadow: 0 0 20px rgba(255,140,0,0.8); }
+        }
+
+        /* Product Cards Enhancements */
+        .featured-products {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the entire image fits within the container */
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05); /* Zooms the image slightly when hovered */
+}
+
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #d38008;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color:#e7a446;
+        }
+
+        .platforms {
+            background-color: var(--light-bg);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .platform-card {
+            background: white;
+            color: black;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .platform-logo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1rem;
+    border-radius: 100%;
+    /* overflow: hidden; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white; /* Ensures logos don't blend into the card */
+}
+
+.platform-logo img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+ /* Footer Enhancements */
+ footer {
+    
+    color: var(--text-color);
+       padding: 4rem 2rem;
+    margin-top: 4rem;
+    text-align: center;
+    background-color: var(--light-bg);
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.footer-section h3 ,li{
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.footer-section p, .footer-section ul {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Base Styles for Light Mode */
+.footer-section ul li a {
+    color: var(--text-color); /* Default color for light mode */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: var(--primary-color); /* Highlight color for hover in light mode */
+}
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+    .footer-section ul li a {
+        color: var(--light-text-color); /* Adjust color for dark mode */
+    }
+
+    .footer-section ul li a:hover {
+        color: var(--primary-color); /* Keep the hover color same for dark mode */
+    }
+}
+
+/* Social Links */
+.social-links a {
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+
+/* Social Links */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+    color:  var(--text-color);
+}
+
+.social-links a {
+
+    font-size: 1.5rem;
+    transition: color 0.3s ease white;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Contact Form */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: none;
+    border-radius: 4px;
+}
+
+.contact-form textarea {
+    height: 80px;
+    resize: none;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.contact-form button:hover {
+    background: var(--secondary-color);
+}
+
+/* Newsletter Form */
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newsletter-form input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: none;
+    border-radius: 4px;
+}
+
+.newsletter-form button {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.newsletter-form button:hover {
+    background: var(--secondary-color);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .social-links {
+        justify-content: flex-start;
+    }
+}
+
+        .social-links a {
+            color: black;
+            font-size: 1.5rem;
+            transition: color 0.3s ease white;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Theme Toggle Improvements */
+        .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-dove"></i>
+                AffiliateNest
+            </div>
+            <div class="nav-links">
+                <a href="Affiliate featured.html">Featured</a>
+                <a href="#platforms">Partners</a>
+                <a href="Affiliate about sec.html">About</a>
+                <a href="Affiliatecontact.html">Contact</a>
+                <button class="theme-toggle">
+                    <i class="fas fa-dove"></i>
+                    Theme
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Exclusive Deals Await You</h1>
+            <!-- <p>Curated selection of premium products from trusted partners</p> -->
+        </div>
+    </section>
+
+    <section class="featured-products" id="featured">
+        <h2 class="section-title">Featured Products Amazon</h2>
+        <div class="product-grid">
+            <div id="mp" class="product-card">
+                <div class="product-image">
+                    <img id="sim" src="/phone.jpg" alt="Smartphone Pro Max">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Smartphone</h3>
+                    <div class="product-price">9,999 Rs</div>
+                    <a href="https://www.amazon.in/s?k=phones+under+10k&crid=FUTDFRQSFZT1&sprefix=
+                    phones+under+10k%2Caps%2C199&ref=nb_sb_noss_1" class="btn">View on Amazon</a>
+                </div>
+            </div>
+            <div  id="WR" class="product-card">
+                <div  class="product-image">
+                    <img id="wrimg" src="earbuds.webp" alt="Wireless Earbuds">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Wireless Earbuds</h3>
+                    <div class="product-price">999 Rs</div>
+                    <a href="https://www.amazon.in/Boult-Wireless-Earbuds-Playtime-Charging/dp/B0D3R1LVR3/ref=sr_1_
+                    13?crid=29WNC4EWWVX9S&dib=eyJ2IjoiMSJ9.AaDAyJyDYEDau7hyVSRQd1x3SyWeWROdkrKdhoils9W5Lq4roScy2bAUTny
+                    Dhx9MPnXTC4CKxHsw-_dDMY1sQIcjd588bOOLByt4IsbAHD-FGylZAkiHabrqjIkhj0GXCvHAh1cNtAsb6LzdxobXZPjgMcgqvs5p
+                    1mPXe8HUrGBcUcnMkxKHxnvUXpF2rZMQS1vOKTLPfWHBj1wdWlS36P1F-ru7Ut45PywMs0wncHE.kAagwb-KF64sJuTCKBEc2aICJ
+                    LRhqP5CxxFIfk3AJ9w&dib_tag=se&keywords=earpods%2Bunder%2B1000&qid=1739435723&sprefix=ear%2Caps%2C358&
+                    sr=8-13&th=1" class="btn">View on Amazon</a>
+                </div>
+            </div>
+            <div id="Sw" class="product-card">
+                <div class="product-image">
+                    <img id="smart" src="watch.jpg" alt="Smart Watch">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Smart Watch</h3>
+                    <div class="product-price">1,500 Rs</div>
+                    <a href="https://www.amazon.in/Fastrack-Limitless-SingleSync-Smartwatch-Assistant/dp/B0D9617ZKW/ref=sr
+                    _1_18?crid=30VK52GUHJ8KB&dib=eyJ2IjoiMSJ9.8-nMrPVuyrV3JsdPlLCC-y5VcKRMXB_7Hs578OVeMaJn_vuIv1qauFPxRQdo
+                    xWNcRPx2pbiNHzHJuJp799PEhETkV04HM54qi9vP-vq7M9MrrBgiiF3Ak5mOnBygGTMOpULJXv9m8WCGjsHx2TGe7iprDo_1dQ7-1j
+                    Fh8sHehfKhVw0vLehtACwXs5jHdf-lFXDCqzMtHGLlbYm_f8S2E5y0Hut0cvZYKUQhRvWoWwI.P5Rukfz8_wjUB0Bi6Duks9LDFTY
+                    eB_0aEm845zbkGpI&dib_tag=se&keywords=smart%2Bwatch&qid=1739357654&sprefix=samrt%2Bwatch%2B%2Caps%2C203&
+                    sr=8-18&th=1" class="btn">View on Amazon</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-products" id="featured">
+        <h2 class="section-title">Featured Products Flipkart</h2>
+        <div class="product-grid">
+            <div id="mp" class="product-card">
+                <div class="product-image">
+                    <img id="sim" src="/phone.jpg" alt="Smartphone Pro Max">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Smartphone</h3>
+                    <div class="product-price">9,999 Rs</div>
+                    <a href="https://www.flipkart.com/search?q=phones%20under%2010k&otrack
+                        er=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off" class="btn">View on flipkart</a>
+                </div>
+            </div>
+            <div  id="WR" class="product-card">
+                <div  class="product-image">
+                    <img id="wrimg" src="earbuds.webp" alt="Wireless Earbuds">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Wireless Earbuds</h3>
+                    <div class="product-price">999 Rs</div>
+                    <a href="https://www.flipkart.com/audio-video/headphones/pr?sid=0pm%2Cfcn&otracker=categorytree&p%5B%5
+                    D=facets.connectivity%255B%255D%3DBluetooth&fm=neo%2Fmerchandising&iid=M_a0f36b9d-8ff5-4d4a-bacb-0d8e2
+                    ca57969_1_372UD5BXDFYS_MC.R08R6GB1Q1BI&otracker=hp_rich_navigation_2_1.navigationCard.RICH_NAVIGATION
+                    _Electronics~Audio~Bluetooth%2BHeadphones_R08R6GB1Q1BI&otracker1=hp_rich_navigation_PINNED_neo%2Fmerchandising_NA_NAV_EXPANDABLE_navigationCard_cc_2_L2_view-all&cid=R08R6GB1Q1BI" class="btn">View on flipkart</a>
+                </div>
+            </div>
+            <div id="Sw" class="product-card">
+                <div class="product-image">
+                    <img id="smart" src="watch.jpg" alt="Smart Watch">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Smart Watch</h3>
+                    <div class="product-price">1,500 Rs</div>
+                    <a href="https://www.flipkart.com/wearable-smart-devices/smart-watches/pr?sid=ajy%2Cbuh&mar
+                    ketplace=FLIPKART&p%5B%5D=facets.brand%255B%255D%3DFastrack&hpid=SVKCw8G6nMCuH4Eqbt2Crap7_Hsx
+                    r70nj65vMAAFKlc%3D&ctx=eyJjYXJkQ29udGV4dCI6eyJhdHRyaWJ1dGVzIjp7InZhbHVlQ2FsbG91dCI6eyJtdWx0aVZhbHV
+                    lZEF0dHJpYnV0ZSI6eyJrZXkiOiJ2YWx1ZUNhbGxvdXQiLCJpbmZlcmVuY2VUeXBlIjoiVkFMVUVfQ0FMTE9VVCIsInZhbHVlcyI6
+                    WyJGcm9tIOKCuTEsMzk5Il0sInZhbHVlVHlwZSI6Ik1VTFRJX1ZBTFVFRCJ9fSwiaGVyb1BpZCI6eyJzaW5nbGVWYWx1ZUF0dHJpYnV0ZSI6eyJrZXkiOiJoZXJvUGlkIiwiaW5mZXJlbmNlVHlwZSI6IlBJRCIsInZhbHVlIjoiU01XSDQ0RlU5Q05BNjZDUyIsInZhbHVlVHlwZSI6IlNJTkdMRV9WQUxVRUQifX0sInRpdGxlIjp7Im11bHRpVmFsdWVkQXR0cmlidXRlIjp7ImtleSI6InRpdGxlIiwiaW5mZXJlbmNlVHlwZSI6IlRJVExFIiwidmFsdWVzIjpbIkZhc3RyYWNrIFNtYXJ0d
+                    2F0Y2hlcyJdLCJ2YWx1ZVR5cGUiOiJNVUxUSV9WQUxVRUQifX19fX0%3D" class="btn">View on flipkart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="platforms" id="platforms">
+        <h2 class="section-title">Our Partner Platforms</h2>
+        <div class="platform-grid">
+            <div class="platform-card">
+                <div class="platform-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo">
+                </div>
+                <h3> <a href="https://www.amazon.in/" style="text-decoration: none;">Amazon</h3></a>
+                <p>Millions of products with competitive prices</p>
+            </div>
+            <div class="platform-card">
+                <div class="platform-logo">
+                    <img src="flipkart logo.png" alt="Flipkart Logo">
+                </div>
+                <h3> <a href="https://www.flipkart.com/" style="text-decoration: none;">Flipkart</h3></a>
+                <p>India's leading e-commerce platform</p>
+            </div>
+            <div class="platform-card">
+                <div class="platform-logo">
+                    <img src="Miltiple logo.webp" alt="More Partners">
+                </div>
+                <h3>Others</h3>
+                <p>More partners coming soon</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="platforms" id="platforms">
+        <h2 class="section-title">Trusted Partners</h2>
+        <div class="platform-grid">
+            <div class="platform-card">
+                <div class="platform-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo">
+                </div>
+                <h3>Amazon India</h3>
+                <p>Fast delivery & great prices</p>
+                <a href="#" class="btn">Explore</a>
+            </div>
+            <!-- Add more partner cards -->
+        </div>
+    </section>
+
+    <footer>
+          
+        <div class="footer-container " >
+            <div class="footer-section about">
+                <h3>About AffiliateNest</h3>
+                <p>We provide the best affiliate recommendations with exclusive deals and trusted partnerships.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#featured">Featured Products</a></li>
+                    <li><a href="#platforms">Partner Platforms</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="Affiliate about sec.html">About Us</a></li>
+                    <li><a href="Affiliatecontact.html">Contact</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section contact">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                <p><i class="fas fa-envelope"></i>vj887128@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +91 7559407764</p>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+    
+            <div class="footer-section newsletter">
+                <h3>Subscribe to Our Newsletter</h3>
+                <p>Stay updated with the latest deals and exclusive offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2025 AffiliateNest | All Rights Reserved</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Enhanced Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.innerHTML = theme === 'dark' 
+                ? '<i class="fas fa-sun"></i> Light' 
+                : '<i class="fas fa-moon"></i> Dark';
+        };
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+
+        // Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.product-card, .platform-card').forEach((el) => {
+            el.classList.add('fade-in');
+            observer.observe(el);
+        });
+
+        // Mobile Menu
+        const menuToggle = document.createElement('button');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        menuToggle.className = 'menu-toggle';
+        document.querySelector('.nav-content').appendChild(menuToggle);
+
+        menuToggle.addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        var earTarImg1 = document.querySelector('#wrimg')
+        earTarImg1.addEventListener('mouseover',()=>{
+                console.log("hover")
+                earTarImg1.src ="earbuds.webp"
+        })
+        earTarImg1.addEventListener('mouseout',()=>{
+                console.log("hover")
+                earTarImg1.src ="earbuds2.webp"
+        })
+
+        var earTarImg2 = document.querySelector('#smart')
+        earTarImg2.addEventListener('mouseover',()=>{
+                console.log("hover")
+                earTarImg2.src ="watch2.jpg"
+        })
+        earTarImg2.addEventListener('mouseout',()=>{
+                console.log("hover")
+                earTarImg2.src ="watch.jpg"
+        })
+
+        var earTarImg3 = document.querySelector('#sim');
+earTarImg3.addEventListener('mouseover', () => {
+    console.log("hover");
+    earTarImg3.src = "phone2.jpg";  // Change image on hover
+});
+earTarImg3.addEventListener('mouseout', () => {
+    console.log("mouseout");
+    earTarImg3.src = "phone.jpg";  // Revert back when mouse leaves
+});
+
+var earTarImg1 = document.querySelector('#wrimg')
+        earTarImg1.addEventListener('mouseover',()=>{
+                console.log("hover")
+                earTarImg1.src ="earbuds.webp"
+        })
+        earTarImg1.addEventListener('mouseout',()=>{
+                console.log("hover")
+                earTarImg1.src ="earbuds2.webp"
+        })
+
+//         var earTarImg2 = document.querySelector('#smart')
+//         earTarImg2.addEventListener('mouseover',()=>{
+//                 console.log("hover")
+//                 earTarImg2.src ="watch2.jpg"
+//         })
+//         earTarImg2.addEventListener('mouseout',()=>{
+//                 console.log("hover")
+//                 earTarImg2.src ="watch.jpg"
+//         })
+
+//         var earTarImg3 = document.querySelector('#sim');
+// earTarImg3.addEventListener('mouseover', () => {
+//     console.log("hover");
+//     earTarImg3.src = "phone2.jpg";  // Change image on hover
+// });
+// earTarImg3.addEventListener('mouseout', () => {
+//     console.log("mouseout");
+//     earTarImg3.src = "phone.jpg";  // Revert back when mouse leaves
+// });
+    </script>
+</body>
+</html>
+
+
+#search-bar {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#search-input {
+    width: 50%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+#search-input:focus {
+    border-color: #333;
+    outline: none;
+}
+
+
